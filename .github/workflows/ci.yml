@@ -30,71 +30,37 @@ jobs:
           echo "CF_IMAGE=$CF_IMAGE" >> $GITHUB_ENV
           docker build . --file Dockerfile --build-arg COLOR=$VERSION --tag $CF_IMAGE && docker push $CF_IMAGE
       
+     
       - name: report image
         with:
           # Name of runtime to implement the enrichment
           CF_RUNTIME_NAME: 'codefresh-hosted'
 
-          # Codefresh API key !! Committing a plain text token is a security risk. We highly recommend using an encrypted secrets. !!
+          # Codefresh API key !! Committing a plain text token is a security risk. We highly recommend using encrypted secrets. !!
           # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
-          CF_API_KEY: ${{secrets.CF_API_KEY}}
+          CF_API_KEY: '62fbc38f960d4931163eea01.15ff92414f98c5ca4575abc37406a318'
+
+          # Image path to enrich
+          CF_IMAGE: '[full image path here, including tag]'
 
           # Name of Container registry integration
-          CF_CONTAINER_REGISTRY_INTEGRATION: 'docker'
+          CF_CONTAINER_REGISTRY_INTEGRATION: 'dockerhub-demo'
+
+          # The git branch relevant to the commit
+          CF_GIT_BRANCH: '[name-of-your-git-branch]'
+
+          # GitHub Access token !! Committing a plain text token is a security risk. We highly recommend using encrypted secrets. !!
+          # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
+          CF_GITHUB_TOKEN: '[github-personal-access-token]'
 
           # Name of Jira integration
           CF_JIRA_INTEGRATION: 'jira'
 
-          # Image path to enrich
-          CF_IMAGE: ${{env.CF_IMAGE}}
-
-          # GitHub Access token !! Committing a plain text token is a security risk. We highly recommend using an encrypted secrets. !!
-          # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
-          CF_GITHUB_TOKEN: ${{secrets.PAT}}
-
           # Jira project filter
-          CF_JIRA_PROJECT_PREFIX: 'CR'
+          CF_JIRA_PROJECT_PREFIX: '[jira-project-prefix]'
 
           # String starting with the issue ID to associate with image
-          CF_JIRA_MESSAGE: "${{ github.event.pull_request.head.ref }}"
-          CF_GIT_BRANCH: "${{ github.event.pull_request.head.ref }}"
+          CF_JIRA_MESSAGE: '[issue-id]'
 
 
         uses: codefresh-io/codefresh-report-image@latest
-      #- name: Report image
-       # with:
-        #  CF_IMAGE: ${{ env.CF_IMAGE }}
-         # CF_HOST: "https://mr-5f04515c6f790a046303eb5a-d0a662e.cf-cd.com"
-          #CF_API_KEY: ${{ secrets.CF_API_KEY }}
-       #   CF_CONTAINER_REGISTRY_INTEGRATION: "docker"
-        #  CF_JIRA_INTEGRATION: "jira"
-         # CF_GITHUB_TOKEN: ${{ secrets.PAT }}
-        #  CF_JIRA_MESSAGE: "${{ github.event.head_commit.message }}"
-        #  CF_JIRA_PROJECT_PREFIX: "CR"
-      - name: Checkout csdp-salesdemo_applications
-        uses: actions/checkout@v3
-        with:
-          repository: kim-codefresh/canary-rollout # change to real 
-          path: .
-      - name: Update application version
-        run: |
-          IMAGE=${{ env.CF_IMAGE }} yq -i '.spec.template.spec.containers.[0].image = strenv(IMAGE)' canary-rollout.yaml
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.PAT }}
-          commit-message: Update version
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          branch: update-application-version
-          delete-branch: true
-          title: 'Update application version'
-          body: |
-            Update deployment version
-            - Updated new version for hello-world application
-          labels: |
-            automated pr
-          draft: false
-
-
