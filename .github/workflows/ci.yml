@@ -71,7 +71,6 @@ jobs:
          # CF_GITHUB_TOKEN: ${{ secrets.PAT }}
         #  CF_JIRA_MESSAGE: "${{ github.event.head_commit.message }}"
         #  CF_JIRA_PROJECT_PREFIX: "CR"
-       # uses: codefresh-io/codefresh-report-image@latest
       - name: Checkout csdp-salesdemo_applications
         uses: actions/checkout@v3
         with:
