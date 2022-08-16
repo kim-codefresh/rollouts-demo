@@ -75,7 +75,7 @@ jobs:
       - name: Checkout csdp-salesdemo_applications
         uses: actions/checkout@v3
         with:
-          repository: kim-codefresh/canary-rollout # change to real repo
+          repository: kim-codefresh/canary-rollout # change to real 
           path: .
       - name: Update application version
         run: |
@@ -97,4 +97,5 @@ jobs:
           labels: |
             automated pr
           draft: false
+
 
