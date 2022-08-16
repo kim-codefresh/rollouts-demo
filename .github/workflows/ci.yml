@@ -41,26 +41,26 @@ jobs:
           CF_API_KEY: '62fbc38f960d4931163eea01.15ff92414f98c5ca4575abc37406a318'
 
           # Image path to enrich
-          CF_IMAGE: '[full image path here, including tag]'
+          CF_IMAGE: ${{env.CF_IMAGE}}
 
           # Name of Container registry integration
           CF_CONTAINER_REGISTRY_INTEGRATION: 'dockerhub-demo'
 
           # The git branch relevant to the commit
-          CF_GIT_BRANCH: '[name-of-your-git-branch]'
+#           CF_GIT_BRANCH: '[name-of-your-git-branch]'
 
           # GitHub Access token !! Committing a plain text token is a security risk. We highly recommend using encrypted secrets. !!
           # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
-          CF_GITHUB_TOKEN: '[github-personal-access-token]'
+          CF_GITHUB_TOKEN: ${{secrets.PAT}}
 
           # Name of Jira integration
           CF_JIRA_INTEGRATION: 'jira'
 
           # Jira project filter
-          CF_JIRA_PROJECT_PREFIX: '[jira-project-prefix]'
+          CF_JIRA_PROJECT_PREFIX: 'CR'
 
           # String starting with the issue ID to associate with image
-          CF_JIRA_MESSAGE: '[issue-id]'
+          CF_JIRA_MESSAGE: "${{ github.event.pull_request.head.ref }}"
 
 
         uses: codefresh-io/codefresh-report-image@latest
