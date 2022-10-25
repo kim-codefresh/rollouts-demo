@@ -6,8 +6,8 @@ on:
       - master
     types:
       - closed
-  push:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
 jobs:
   build:
     environment:
