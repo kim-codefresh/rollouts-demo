@@ -51,7 +51,7 @@ jobs:
 
           # GitHub Access token !! Committing a plain text token is a security risk. We highly recommend using encrypted secrets. !!
           # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
-          CF_GITHUB_TOKEN: ${{secrets.PAT}}
+          CF_GITHUB_TOKEN: ${{secrets.PAT_NEW}}
 
           # Name of Jira integration
           CF_JIRA_INTEGRATION: 'jira'
