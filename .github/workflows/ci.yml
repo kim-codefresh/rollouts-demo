@@ -38,13 +38,13 @@ jobs:
 
           # Codefresh API key !! Committing a plain text token is a security risk. We highly recommend using encrypted secrets. !!
           # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
-          CF_API_KEY: '62fbc38f960d4931163eea01.15ff92414f98c5ca4575abc37406a318'
+          CF_API_KEY: ${{ secrets.PAT }}
 
           # Image path to enrich
           CF_IMAGE: ${{env.CF_IMAGE}}
 
           # Name of Container registry integration
-          CF_CONTAINER_REGISTRY_INTEGRATION: 'dockerhub-demo'
+          CF_CONTAINER_REGISTRY_INTEGRATION: 'docker'
 
           # The git branch relevant to the commit
 #           CF_GIT_BRANCH: '[name-of-your-git-branch]'
