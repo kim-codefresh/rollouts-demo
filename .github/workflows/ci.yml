@@ -38,7 +38,7 @@ jobs:
 
           # Codefresh API key !! Committing a plain text token is a security risk. We highly recommend using encrypted secrets. !!
           # Documentation - https://docs.github.com/en/actions/security-guides/encrypted-secrets
-          CF_API_KEY: ${{ secrets.PAT }}
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
 
           # Image path to enrich
           CF_IMAGE: ${{env.CF_IMAGE}}
